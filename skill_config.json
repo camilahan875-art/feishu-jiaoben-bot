@@ -1,0 +1,68 @@
+{
+  "skill_name": "game-creative-ideator",
+  "label": "游戏脚本创意分析与发散器",
+  "version": "1.1.0",
+  "created_date": "2026-03-19",
+  "author": "AI素材研发中心",
+  "description": "基于大模型引擎的买量素材管家。支持输入基础创意脑洞进行自动化发散，精准提取视频前3秒吸睛钩子（Hook）、匹配高转化情绪标签，并一键生成标准化的美术资产需求表与分镜脚本。",
+  "game_types": [
+    "水排序订单",
+    "挪车载人", 
+    "猫咪庄园"
+  ],
+  "target_markets": [
+    "美国 (US)",
+    "英国 (UK)",
+    "法国 (France)",
+    "德国 (Germany)",
+    "意大利 (Italy)",
+    "西班牙 (Spain)",
+    "巴西 (Brazil)",
+    "全球 (Global)"
+  ],
+  "emotion_tags_focus": [
+    "Relaxing",
+    "Anti Stress",
+    "Satisfying",
+    "Free",
+    "Offline"
+  ],
+  "features": [
+    "基础创意脑洞AI发散与补全",
+    "视频前3秒黄金钩子(Hook)提取",
+    "强转化情绪标签(Tags)自动打标",
+    "美术资产状态分类与结构化输出",
+    "飞书标准化Markdown排版生成",
+    "原始文档规格提取与验证"
+  ],
+  "scripts": {
+    "structure_parser": {
+      "path": "scripts/structure_parser.py",
+      "description": "AI创意发散与结构解析大脑（集成大模型）"
+    },
+    "template_generator": {
+      "path": "scripts/template_generator.py",
+      "description": "飞书标准化Markdown排版渲染引擎"
+    },
+    "init_skill": {
+      "path": "scripts/init_skill.py",
+      "description": "技能环境与AI密钥初始化脚本"
+    },
+    "package_skill": {
+      "path": "scripts/package_skill.py",
+      "description": "技能打包分发脚本"
+    }
+  },
+  "references": {
+    "script_patterns": {
+      "path": "references/script_patterns.md",
+      "description": "爆款素材公式与高转化脚本模式参考"
+    }
+  },
+  "assets": {
+    "game_script_template": {
+      "path": "assets/game_script_template.md",
+      "description": "飞书通用买量脚本展示模板"
+    }
+  }
+}
