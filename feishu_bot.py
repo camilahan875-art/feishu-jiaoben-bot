@@ -1,3 +1,4 @@
+import os
 import json
 import requests
 from flask import Flask, request, jsonify
@@ -6,24 +7,24 @@ from scripts.template_generator import GameScriptTemplateGenerator
 
 app = Flask(__name__)
 
-# ================= 极其重要的配置区 =================
-FEISHU_APP_ID = "cli_a930d68a7b789cee"
-FEISHU_APP_SECRET = "n47cN7zkbrIhlGa3yLTcDf3lWuMu7yLj"
-GEMINI_API_KEY = "AIzaSyCLEIfqm5LvrD5qf9VPWYMGkrBLsQKiTH"
-# ====================================================
+# ================= 极其重要的配置区 (改为从云端环境变量读取) =================
+FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID")
+FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+# ======================================================================
 
 parser = GameScriptStructureParser(api_key=GEMINI_API_KEY)
 generator = GameScriptTemplateGenerator()
 
 def get_tenant_access_token():
-    url = "[https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal](https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal)"
+url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
     payload = {"app_id": FEISHU_APP_ID, "app_secret": FEISHU_APP_SECRET}
     res = requests.post(url, json=payload).json()
     return res.get("tenant_access_token")
 
 def send_message(message_id, content):
     token = get_tenant_access_token()
-    url = f"[https://open.feishu.cn/open-apis/im/v1/messages/](https://open.feishu.cn/open-apis/im/v1/messages/){message_id}/reply"
+url = f"https://open.feishu.cn/open-apis/im/v1/messages/{message_id}/reply"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     payload = {
         "msg_type": "text", 
@@ -59,5 +60,7 @@ def feishu_event():
 
     return jsonify({"msg": "success"})
 
-if __name__ == '__main__':
-    app.run(port=8000)
+iif __name__ == '__main__':
+    # 云端服务器会自动分配 PORT，不能写死 5000
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
